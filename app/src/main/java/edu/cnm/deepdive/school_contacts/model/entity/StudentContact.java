@@ -37,8 +37,6 @@ public class StudentContact {
   @ColumnInfo(name = "relationship_type", index = true)
   private RelationshipType relationshipType;
 
-  private enum RelationshipType {PARENT, GUARDIAN, SIBLING, OTHER};
-
   public long getStudentContactId() {
     return studentContactId;
   }
@@ -58,4 +56,6 @@ public class StudentContact {
   public void setPrimary(boolean primary) {
     this.primary = primary;
   }
+
+  private enum RelationshipType {PARENT, GUARDIAN, SIBLING, OTHER};
 }
