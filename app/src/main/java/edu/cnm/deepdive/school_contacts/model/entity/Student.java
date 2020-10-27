@@ -4,15 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import java.time.LocalDate;
 
-@Entity
+@Entity(
+    indices = {
+        @Index(value = {"last_name", "first_name", "middle_name"}, unique = true),
+        @Index(value = {"student_number"}, unique = true)
+    }
+)
 public class Student {
 
-  @PrimaryKey
+  @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "student_id")
-  @NonNull
   private long studentId;
 
   @ColumnInfo(name = "student_number")
@@ -28,14 +33,12 @@ public class Student {
   private String firstName;
 
   @ColumnInfo(name = "middle_name")
-  @Nullable
   private String middleName;
 
   @NonNull
   @ColumnInfo(index = true)
-  private LocalDate enrolled;
+  private LocalDate enrolled = LocalDate.now();
 
-  @Nullable
   @ColumnInfo(index = true)
   private LocalDate disenrolled;
 
@@ -70,12 +73,11 @@ public class Student {
     this.firstName = firstName;
   }
 
-  @Nullable
   public String getMiddleName() {
     return middleName;
   }
 
-  public void setMiddleName(@Nullable String middleName) {
+  public void setMiddleName(String middleName) {
     this.middleName = middleName;
   }
 
@@ -84,16 +86,11 @@ public class Student {
     return enrolled;
   }
 
-  public void setEnrolled(@NonNull LocalDate enrolled) {
-    this.enrolled = enrolled;
-  }
-
-  @Nullable
   public LocalDate getDisenrolled() {
     return disenrolled;
   }
 
-  public void setDisenrolled(@Nullable LocalDate disenrolled) {
+  public void setDisenrolled(LocalDate disenrolled) {
     this.disenrolled = disenrolled;
   }
 }
